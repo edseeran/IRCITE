@@ -30,6 +30,7 @@ $route->post('/login',                      [AuthController::class,'login']);
     $route->get('/list',                     [AuthController::class,'list']);
     $route->get('/show/{applicant_id}',      [AuthController::class,'show']);
     $route->delete('/delete/{applicant_id}', [AuthController::class,'delete']);
+    $route->put('/update/{applicant_id}',    [AuthController::class,'update']);
 });
 });
 

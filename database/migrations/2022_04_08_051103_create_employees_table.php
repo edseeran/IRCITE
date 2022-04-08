@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->string('employee_id');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('position');
+            $table->integer('sick_leave_credits');
+            $table->integer('vacation_leave_credits');
+            $table->integer('hourly_rate');
             $table->timestamps();
         });
     }
