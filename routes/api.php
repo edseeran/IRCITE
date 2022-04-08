@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,8 @@ use App\Http\Controllers\AuthController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//ACCOUNT API ROUTES
 Route::group([
     'prefix' => 'management/account'
 
@@ -34,6 +37,20 @@ $route->post('/login',                      [AuthController::class,'login']);
 });
 });
 
+
+//EMPLOYEE API ROUTES
+   
+Route::group([
+    'prefix' => 'management/employee',
+    'middleware' => 'auth:sanctum',
+
+], function ($route) {
+    $route->post('/create',                  [EmployeeController::class,'create']);
+    $route->get('/list',                     [EmployeeController::class,'list']);
+    $route->get('/show/{employee_id}',       [EmployeeController::class,'show']);
+    $route->delete('/delete/{employee_id}',  [EmployeeController::class,'delete']);
+    $route->put('/update/{employee_id}',     [EmployeeController::class,'update']);
+});
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/user', function (Request $request) {

@@ -14,23 +14,23 @@ class AuthController extends Controller
 // REGISTER REPOSITORY
    public function register(Request $request)
    {
-    if (Auth::user()->clearance_level == 'superuser'){
+
     $data = $request->validate([
         'account_id' => 'required|unique:users|max:10',
-        'first_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
+        'firstName' => 'required|string|max:255',
+        'lastName' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users,email',
-        'password' => 'required|string|min:6|confirmed',
-        'clearance_level' => 'required|string|in:superuser,l1Admin,l2Admin,l3Admin'
+        'password' => 'required|string|min:3|confirmed',
+        'clearanceLevel' => 'required|string|in:superuser,l1Admin,l2Admin,l3Admin'
     ]);
 
     $user = User::create([
         'account_id' => $data['account_id'],
-        'first_name' => $data['first_name'],
-        'last_name' => $data['last_name'],
+        'first_name' => $data['firstName'],
+        'last_name' => $data['lastName'],
         'email' => $data['email'],
         'password' => Hash::make($data['password']),
-        'clearance_level' => $data['clearance_level'],
+        'clearance_level' => $data['clearanceLevel'],
     ]);
 
     $token = $user->createToken('User Password Grant Client')->plainTextToken;
@@ -42,38 +42,8 @@ class AuthController extends Controller
 
     return response($response, 200);
     }
-    elseif (Auth::user()->clearance_level == 'l1Admin'){
-        $data = $request->validate([
-            'account_id' => 'required|unique:users|max:10',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
-            'clearance_level' => 'required|string|in:superuser,l1Admin,l2Admin,l3Admin'
-        ]);
-    
-        $user = User::create([
-            'account_id' => $data['account_id'],
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'clearance_level' => $data['clearance_level'],
-        ]);
-    
-        $token = $user->createToken('User Password Grant Client')->plainTextToken;
-    
-        $response = [
-            'user' => $user,
-            'token' => $token,
-        ];
-    
-        return response($response, 200);
-        }
-    else{
-        return response('Unauthorized', 401);
-    }
-}
+
+
 // LOGOUT REPOSITORY
    public function logout(Request $request){
     $request->user()->tokens()->delete();
@@ -84,8 +54,8 @@ class AuthController extends Controller
    public function login(Request $request){
 
     $data = $request->validate([
-        'email' => 'required|string|email|max:255',
-        'password' => 'required|string|min:6|confirmed',
+        'email' => 'required|string|email',
+        'password' => 'required',
     ]);
 
     $user = User::where('email', $data['email'])->first();
@@ -122,7 +92,6 @@ class AuthController extends Controller
     }elseif(Auth::user()->clearance_level == 'l2Admin')
     {
         $users = User::all();
-
     }
     else{
         return response(['message: You do not have permission to view this page'], 401);
@@ -151,7 +120,7 @@ class AuthController extends Controller
         return response($user, 200);
     }
 
-    // SHOW REPOSITORY
+    // DELETE REPOSITORY
     public function delete($account_id)
     {
         if(Auth::user()->clearance_level == 'superuser')
@@ -177,11 +146,11 @@ class AuthController extends Controller
         {
             $user = User::where('account_id', $account_id)->first();
             $data = $request->validate([
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
+                'firstName' => 'required|string|max:255',
+                'lastName' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email',
-                'password' => 'required|string|min:6|confirmed',
-                'clearance_level' => 'required|string|in:superuser,l1Admin,l2Admin,l3Admin'
+                'password' => 'required|string|min:3|confirmed',
+                'clearanceLevel' => 'required|string|in:superuser,l1Admin,l2Admin,l3Admin'
             ]);
             $user->update($data);
         }
@@ -189,11 +158,11 @@ class AuthController extends Controller
         {
             $user = User::where('account_id', $account_id)->first();
             $data = $request->validate([
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
+                'firstName' => 'required|string|max:255',
+                'lastName' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email',
-                'password' => 'required|string|min:6|confirmed',
-                'clearance_level' => 'required|string|in:superuser,l1Admin,l2Admin,l3Admin'
+                'password' => 'required|string|min:3|confirmed',
+                'clearanceLevel' => 'required|string|in:superuser,l1Admin,l2Admin,l3Admin'
             ]);
             $user->update($data);
         }

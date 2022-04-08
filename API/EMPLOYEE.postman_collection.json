@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "43a950d6-416d-47c0-a93c-dcd6f20581c7",
+		"name": "EMPLOYEE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "employee_id",
+							"value": "1a2b3c4d5z",
+							"type": "text"
+						},
+						{
+							"key": "firstName",
+							"value": "John",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Doe",
+							"type": "text"
+						},
+						{
+							"key": "position",
+							"value": "Accounting",
+							"type": "text"
+						},
+						{
+							"key": "sickLeaveCredits",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "vacationLeaveCredits",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "hourlyRate",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/management/employee/create",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"management",
+						"employee",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/management/employee/list",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"management",
+						"employee",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/management/employee/show/1a2b3c4d5z",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"management",
+						"employee",
+						"show",
+						"1a2b3c4d5z"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/management/employee/delete/1a2b3c4d5z",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"management",
+						"employee",
+						"delete",
+						"1a2b3c4d5z"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/management/employee/update/1a2b3c4d5z",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"management",
+						"employee",
+						"update",
+						"1a2b3c4d5z"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
