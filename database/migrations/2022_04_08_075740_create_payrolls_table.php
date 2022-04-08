@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id');
+            $table->time('start_date')->nullable();
+            $table->time('end_date')->nullable();
+            $table->integer('salary')->nullable();
+            $table->time('time_in_date')->nullable();
+            $table->time('time_out_date')->nullable();
+            $table->time('mark_date')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

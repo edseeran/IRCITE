@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('position');
-            $table->integer('sick_leave_credits');
-            $table->integer('vacation_leave_credits');
-            $table->integer('hourly_rate');
+            $table->float('sick_leave_credits');
+            $table->float('vacation_leave_credits');
+            $table->float('hourly_rate');
             $table->timestamps();
         });
     }
