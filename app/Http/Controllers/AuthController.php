@@ -15,6 +15,7 @@ class AuthController extends Controller
    public function register(Request $request){
 
     $data = $request->validate([
+        'account_id' => 'required|unique:users|max:10',
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users,email',
@@ -23,6 +24,7 @@ class AuthController extends Controller
     ]);
 
     $user = User::create([
+        'account_id' => $data['account_id'],
         'first_name' => $data['first_name'],
         'last_name' => $data['last_name'],
         'email' => $data['email'],
@@ -52,14 +54,13 @@ class AuthController extends Controller
     $data = $request->validate([
         'email' => 'required|string|email|max:255',
         'password' => 'required|string|min:6|confirmed',
-        'clearance_level' => 'required|string|in:superuser,l1Admin,l2Admin,l3Admin'
     ]);
 
     $user = User::where('email', $data['email'])->first();
 
     if(!$user || !Hash::check($data['password'], $user->password)){
 
-        return response(['message: Invalid credentials'], 401);
+        return response(['message: Invalid credentials'], 404);
     }
     else
     {
@@ -72,7 +73,73 @@ class AuthController extends Controller
     
             return response($response, 200);
     }
+    
 
    }
 
+// LIST REPOSITORY
+   public function list(){
+
+    if (Auth::user()->clearance_level == 'superuser')
+    {
+        $users = User::all();
+    }elseif(Auth::user()->clearance_level == 'l1Admin')
+    {
+        $users = User::all();
+
+    }elseif(Auth::user()->clearance_level == 'l2Admin')
+    {
+        $users = User::all();
+
+    }
+    else{
+        return response(['message: You do not have permission to view this page'], 401);
+    }
+    return response($users, 200);
+    }
+    
+// SHOW REPOSITORY
+    public function show($account_id)
+    {
+        if(Auth::user()->clearance_level == 'superuser')
+        {
+            $user = User::where('account_id', $account_id)->first();
+        }
+        elseif(Auth::user()->clearance_level == 'l1Admin')
+        {
+            $user = User::where('account_id', $account_id)->first();
+        }
+        elseif(Auth::user()->clearance_level == 'l2Admin')
+        {
+            $user = User::where('account_id', $account_id)->first();
+        }
+        else{
+            return response(['message: You do not have permission to view this page'], 401);
+        }
+        return response($user, 200);
+    }
+
+    // SHOW REPOSITORY
+    public function delete($account_id)
+    {
+        if(Auth::user()->clearance_level == 'superuser')
+        {
+            $user = User::where('account_id', $account_id)->first();
+            $user->delete();
+        }
+        elseif(Auth::user()->clearance_level == 'l1Admin')
+        {
+            $user = User::where('account_id', $account_id)->first();
+            $user->delete();
+        }
+        elseif(Auth::user()->clearance_level == 'l2Admin')
+        {
+            $user = User::where('account_id', $account_id)->first();
+            $user->delete();
+        }
+        else{
+            return response(['message: You do not have permission to view this page'], 401);
+        }
+        return response(['message: Account Deleted Successfully'], 200);
+    }
 }

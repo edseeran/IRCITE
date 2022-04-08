@@ -15,18 +15,21 @@ use App\Http\Controllers\AuthController;
 |
 */
 Route::group([
-    'prefix' => 'auth'
+    'prefix' => 'management/account'
 
 ], function ($route) {
 
-$route->post('/register', [AuthController::class,'register']);
-$route->post('/login',    [AuthController::class,'login']);
+$route->post('/register',                   [AuthController::class,'register']);
+$route->post('/login',                      [AuthController::class,'login']);
    
     Route::group([
     'middleware' => 'auth:sanctum',
 
 ], function ($route) {
-    $route->post('/logout', [AuthController::class,'logout']);
+    $route->post('/logout',                  [AuthController::class,'logout']);
+    $route->get('/list',                     [AuthController::class,'list']);
+    $route->get('/show/{applicant_id}',      [AuthController::class,'show']);
+    $route->delete('/delete/{applicant_id}', [AuthController::class,'delete']);
 });
 });
 
