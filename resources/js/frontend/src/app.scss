@@ -1,0 +1,14 @@
+// Define variable defaults
+$primary: rgb(28,33,45);
+$secondary: rgb(255,216,49);
+$success: rgb(96,203,163);
+$light: rgb(243,246,249);
+
+$link-color: white;
+$link-hover-color: none;
+
+// Then import Bootstrap an BootstrapVue SCSS files (order is important)
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/bootstrap-vue/src/index.scss';
+
+// General style overrides and custom classes
